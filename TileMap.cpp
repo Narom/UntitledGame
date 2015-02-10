@@ -2,20 +2,23 @@
 
 bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
 {
-	// load the tileset texture
-	if (!mapTileset.loadFromFile(tileset))
+	//this block of code prepares information used for texturing. the image file is loaded and a vertex array is set up as a grid for tiling
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+	if (!mapTileset.loadFromFile(tileset))		//load texture set, or return false if unable
 		return false;
 
-	// resize the vertex array to fit the level size
 	map.setPrimitiveType(sf::Quads);
 	map.resize(width * height * 4);
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	// populate the vertex array, with one quad per tile
-	for (unsigned int i = 0; i < width; ++i)
+	
+	
+	// this block of code actually creates the image, by texturing each tile.
+	//------------------------------------------------------------------------------------------------------------------------------------------
+	for (unsigned int i = 0; i < width; ++i)				//outer loop goes through columns, and inner loop through rows
 		for (unsigned int j = 0; j < height; ++j)
 		{
-			// get the current tile number
-			int tileNumber = tiles[i + j * width];
+			int tileNumber = tiles[i + j * width];		// get the current tile number
 
 			// find its position in the tileset texture
 			int tu = tileNumber % (mapTileset.getSize().x / tileSize.x);
@@ -36,6 +39,7 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int*
 			quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
 			quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
 		}
+		//--------------------------------------------------------------------------------------------------------------------------------------
 
 	return true;
 }
