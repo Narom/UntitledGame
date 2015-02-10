@@ -6,7 +6,10 @@ int main ()
 {
 	//various objects and data used in running the game are created in this block of code. 
 	//-----------------------------------------------------------------------------------------------------
-	sf::RenderWindow window(sf::VideoMode(768, 256), "Game Project");	//window object is created with the desired dimensions
+	sf::RenderWindow window(sf::VideoMode(300, 200), "Game Project");	//window object is created with the desired dimensions
+	sf::View camera(sf::FloatRect(0, 0, 300, 200));		//a view object is used to create a movable view of the whole stage
+	sf::Clock stopwatch;
+	float movement = 0;
 	
 	const int level[] =
 	{
@@ -39,7 +42,19 @@ int main ()
 				window.close();
 		}
 		
+		//these lines determine how to move the view of the image
+		movement = 100 * stopwatch.restart().asSeconds();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			camera.move(-movement, 0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			camera.move(movement, 0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			camera.move(0, -movement);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			camera.move(0, movement);
+		
 		window.clear();
+		window.setView(camera);
 		window.draw(stage);	//currently, only the stage is being drawn
 		window.display();
 	}
