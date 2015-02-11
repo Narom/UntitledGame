@@ -7,9 +7,10 @@ int main ()
 	//various objects and data used in running the game are created in this block of code. 
 	//-----------------------------------------------------------------------------------------------------
 	sf::RenderWindow window(sf::VideoMode(300, 200), "Game Project");	//window object is created with the desired dimensions
+	window.setFramerateLimit(45);
 	sf::View camera(sf::FloatRect(0, 0, 300, 200));		//a view object is used to create a movable view of the whole stage
 	sf::Clock stopwatch;
-	float movement = 0;
+	int movement = 0;
 	
 	const int level[] =
 	{
