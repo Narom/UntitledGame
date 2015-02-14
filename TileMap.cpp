@@ -8,7 +8,7 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int*
 		return false;
 
 	map.setPrimitiveType(sf::Quads);
-	map.resize(width * height * 4);
+	map.resize(width * height * 4);	//map is an array of vertices, so it will contain a number of points 4 times greater than the quantity of tiles
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	
